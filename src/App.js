@@ -5,6 +5,7 @@ import {Login} from './components/login';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import TempDrawer from './components/tempDrawer';
 import NewTask from './components/NewTask';
+import  UserProfile  from './components/UserProfile';
 
 class App extends Component {
 
@@ -23,6 +24,8 @@ class App extends Component {
         });
     };
 
+
+    
     logOut(){
         localStorage.clear();
         localStorage.setItem('isLoggedIn',false);
@@ -36,6 +39,8 @@ class App extends Component {
 
         const NewTaskView = () => (<NewTask />);
 
+        const UserProfile = () => (<UserProfile />);
+
         return (
             
             <BrowserRouter>
@@ -45,11 +50,12 @@ class App extends Component {
                         <h3 className="App-title">Lab 4 IETI</h3>
                     </header>
                     <div>
-                        {this.state.isLoggedIn ? <Redirect to="/panel" />: <Redirect to="/"/>}
+                        {!this.state.isLoggedIn ? <Redirect to="/"/>: <Redirect to="/panel"/>}
                         <Switch>
                             <Route exact path="/" component={LoginView}/>
                             <Route exact path="/panel" component={DrawerView}/>
                             <Route exact path="/panel/register" component={NewTaskView}/>
+                            <Route exact path="/panel/user" component={UserProfile}/>
                         </Switch>
                     </div>
                 </div>

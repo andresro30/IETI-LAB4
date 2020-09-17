@@ -39,9 +39,10 @@ export class NewTask extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {description:'',responsible:'',estado:'',date:''};
+        this.state = {description:'',name:'',email:'',estado:'',date:''};
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-        this.handleResponsibleChange = this.handleResponsibleChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleEstadoChange = this.handleEstadoChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,9 +54,15 @@ export class NewTask extends React.Component {
         });
     };
 
-    handleResponsibleChange(e){
+    handleNameChange(e){
         this.setState({
-            responsible: e.target.value
+            name: e.target.value
+        });
+    };
+
+    handleEmailChange(e){
+        this.setState({
+            email: e.target.value
         });
     };
 
@@ -102,23 +109,31 @@ export class NewTask extends React.Component {
                                     onChange={this.handleDescriptionChange} fullWidth autoFocus required />
                             </div>
                             <br></br>
+                            <div>
+                                <TextField  id="name" label="Name"  placeholder="name"
+                                    onChange={this.handleNameChange} fullWidth autoFocus required />
+                            </div>
+                            <br></br>
                             <div >
-                                <TextField id="responsible" label="responsible" placeholder="responsible"
-                                    onChange={this.handleResponsibleChange} fullWidth required />
+                                <TextField id="email" label="Email" type="email" placeholder="email"
+                                    onChange={this.handleEmailChange} fullWidth required />
                             </div >
                         </div>
                         <br></br>
-                        <FormControl className={classes.formControl}>
+                        <FormControl className={classes.formControl} >
                             <InputLabel id="demo-simple-select-label">Status</InputLabel>
                             <Select labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 onChange={this.handleEstadoChange}
+                                fullWidth required
                                 >
                             <MenuItem value={10}>Ready</MenuItem>
                             <MenuItem value={20}>Completed</MenuItem>
                             <MenuItem value={30}>In Progress</MenuItem>
                             </Select>
                         </FormControl>
+                        <br></br>
+                        <br></br>
                         <br></br>
                         <div>
                             <Button type="submit" color="primary" variant="contained"  className="submit"
