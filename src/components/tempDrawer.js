@@ -28,15 +28,13 @@ class TempDrawer extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {activo: false}
+        this.state = {activo: false,nombre:"",email:"",newUser:null}
         
         this.handleActivoChange = this.handleActivoChange.bind(this);
         this.logOut = this.logOut.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
-
-    
 
     handleActivoChange() {
       this.setState({ activo: !this.state.activo });
@@ -49,7 +47,15 @@ class TempDrawer extends Component {
 
     handleSubmit(){
         console.log("Vamos a crear");
-        document.location.href="/panel/register";
+    }
+
+    sendData(x){
+        this.setState.nombre({ nombre: x.name });
+        this.setState.email({ email: x.email });
+    }
+
+    componentDidMount(){
+        this.setState({newUser:JSON.parse(localStorage.getItem("newUser"))});
     }
 
     render() {
@@ -106,18 +112,6 @@ class TempDrawer extends Component {
                       />
                     </Card>
                 </Grid>
-                    <Fab
-                      variant="extended"
-                      size="small"
-                      color="primary"
-                      aria-label="add"
-                      className={classes.margin}
-                      onClick={this.handleSubmit}
-                    >
-                      <NavigationIcon className={classes.extendedIcon} />
-                      Register
-                  </Fab>
-
                   {localStorage.getItem("isLoggedIn") === "true" &&
                   <Grid>
                   <Button
@@ -140,8 +134,21 @@ class TempDrawer extends Component {
                   <TempCard titulo={'Implement Login View'} estado={'In progress'}/>
                   <TempCard titulo={'Implement Login Controller'} estado={'Ready'}/>
                   <TempCard titulo={'Facebook Integration'} estado={'Completed'}/>
+                  {this.state.newUser  && <TempCard titulo={this.state.newUser.description} estado={this.state.newUser.estado} 
+                    responsible={this.state.newUser.responsible} date={this.state.newUser.date}/>}
                 </div>
                 <br></br>
+                <Fab
+                      variant="extended"
+                      size="small"
+                      color="primary"
+                      aria-label="add"
+                      href="/panel/register"
+                      className={classes.margin}
+                    >
+                      <NavigationIcon className={classes.extendedIcon} />
+                      Register
+                  </Fab>
               </main>
           </div>
         )

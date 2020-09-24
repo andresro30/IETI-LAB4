@@ -16,6 +16,7 @@ class App extends Component {
         this.state = {isLoggedIn: false};
         this.handleLogginChange = this.handleLogginChange.bind(this);
         this.logOut = this.logOut.bind(this);
+        this.logIn = this.logIn.bind(this);
     }
 
     handleLogginChange() {
@@ -24,6 +25,12 @@ class App extends Component {
         });
     };
 
+    logIn(){
+        console.log("vamos al menu");
+        this.handleLogginChange();
+        console.log(localStorage.getItem('isLoggedIn'));
+        document.href="/panel";
+    };
 
     
     logOut(){
@@ -33,7 +40,7 @@ class App extends Component {
     };
 
     render() {
-        const LoginView = () => (<Login login={this.handleLogginChange}/>);
+        const LoginView = () => (<Login login={this.logIn}/>);
 
         const DrawerView = () => (<TempDrawer logOut={this.logOut}/>);
 
@@ -50,7 +57,8 @@ class App extends Component {
                         <h3 className="App-title">Lab 4 IETI</h3>
                     </header>
                     <div>
-                        {!this.state.isLoggedIn ? <Redirect to="/"/>: <Redirect to="/panel"/>}
+                        {localStorage.getItem('isLoggedIn') === "false" ? <Redirect to="/"/>: null}
+                        {console.log(localStorage.getItem('isLoggedIn'))}
                         <Switch>
                             <Route exact path="/" component={LoginView}/>
                             <Route exact path="/panel" component={DrawerView}/>

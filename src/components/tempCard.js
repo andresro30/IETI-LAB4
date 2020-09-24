@@ -59,7 +59,7 @@ class TempCard extends Component{
                     {date}
                 </Typography>
                 <Typography variant="h5" component="h5" color="textSecondary">
-                    Santiago Carrillo
+                    {this.props.responsible}
                 </Typography>
               </CardContent>
             </Card>

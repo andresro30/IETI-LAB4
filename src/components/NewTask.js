@@ -74,21 +74,25 @@ export class NewTask extends React.Component {
 
     
     handleDateChange(){
+        const fecha = new Date();
         this.setState({
-            date: new Date().getDate()+"/"+ new Date().getMonth() +"/"+ new Date().getFullYear()
+            date: fecha.getDate().toString() +"/"+ new Date().getMonth().toString() +"/"+ new Date().getFullYear().toString()
         });
+        console.log(this.state.date);
+        console.log(new Date().getDate().toString());
     };
 
     handleSubmit(e){
         e.preventDefault();
         console.log("vamos a registrar");
-        if(this.state.description !== "" && this.state.responsible !== "" && this.state.estado !=="" 
-            && this.state.date !== ""){
-                alert("datos correctos");
-                alert(this.state);
-                //this.props.card(this.state.description,this);
-            
-        }else{
+        this.handleDateChange();
+        console.log(this.state.date+" "+this.state.name+" "+this.state.description+" "+this.state.estado);
+        if(this.state.estado !== ""){
+            const user = {description:this.state.description,responsible:this.state.name,estado:this.state.estado,date:this.state.date};
+            localStorage.setItem("newUser",JSON.stringify(user));
+            document.location.href="/panel";
+        }
+        else{
             alert("datos incorrectos")
         }
     };
@@ -127,9 +131,9 @@ export class NewTask extends React.Component {
                                 onChange={this.handleEstadoChange}
                                 fullWidth required
                                 >
-                            <MenuItem value={10}>Ready</MenuItem>
-                            <MenuItem value={20}>Completed</MenuItem>
-                            <MenuItem value={30}>In Progress</MenuItem>
+                            <MenuItem value={"Ready"}>Ready</MenuItem>
+                            <MenuItem value={"Completed"}>Completed</MenuItem>
+                            <MenuItem value={"In Proggress"}>In Progress</MenuItem>
                             </Select>
                         </FormControl>
                         <br></br>

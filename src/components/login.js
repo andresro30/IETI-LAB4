@@ -1,7 +1,7 @@
 import React from 'react';
 import './login.css';
 import {  withStyles,TextField, MenuItem, Paper, Button, Typography} from '@material-ui/core';
-
+import {Redirect} from 'react-router-dom'
 
 
 const styles = theme => ({
@@ -69,6 +69,7 @@ export class Login extends React.Component {
         return (
             <div className="fondo">
                  <div>
+                 {localStorage.getItem("isLoggedIn") === "true" && <Redirect to="/panel" />}
                     <form onSubmit={this.handleSubmit} className="form" >
                         <br></br>
                         <h2>Iniciar Sesión</h2>
